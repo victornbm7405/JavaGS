@@ -10,9 +10,9 @@ import java.io.IOException;
 public class CORSFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) throws IOException {
-        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*"); // Permitir qualquer origem
-        responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS"); // Métodos permitidos
-        responseContext.getHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization"); // Cabeçalhos permitidos
-        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true"); // Permitir credenciais
+        responseContext.getHeaders().add("Access-Control-Allow-Origin", "*");
+        responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+        responseContext.getHeaders().add("Access-Control-Allow-Headers", "Content-Type, Authorization");
+        responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
     }
 }
