@@ -14,6 +14,7 @@ public class Main {
         // Configuração dos recursos e handlers do servidor
         ResourceConfig config = new ResourceConfig()
                 .packages("com.renovatec.controller") // Pacote onde estão os controllers/endpoints
+                .register(com.renovatec.config.CORSFilter.class) // Registro do filtro CORS
                 .register(com.renovatec.config.GsonMessageBodyHandler.class); // Registro do Gson
 
         // Criação do servidor Grizzly
