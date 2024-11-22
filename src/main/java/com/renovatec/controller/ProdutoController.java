@@ -2,25 +2,25 @@ package com.renovatec.controller;
 
 import com.renovatec.dao.ProdutoDAO;
 import com.renovatec.model.Produto;
+
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
 import java.util.List;
 
-@Path("/produtos")
+@Path("/produtos") // Endpoint base
 public class ProdutoController {
+
     private ProdutoDAO produtoDAO = new ProdutoDAO();
 
-    // GET - Listar Produtos
-    @GET
+    @GET // Método para listar todos os produtos
     @Produces(MediaType.APPLICATION_JSON)
     public Response listarProdutos() {
         System.out.println("Recebida requisição GET para listar produtos");
         try {
             List<Produto> produtos = produtoDAO.listarProdutos();
-            System.out.println("Produtos encontrados: " + produtos);
-            return Response.ok(produtos).build();
+            return Response.ok(produtos).build(); // Retorna lista de produtos
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -29,8 +29,7 @@ public class ProdutoController {
         }
     }
 
-    // POST - Cadastrar Produto
-    @POST
+    @POST // Método para cadastrar um novo produto
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response cadastrarProduto(Produto produto) {
@@ -48,8 +47,7 @@ public class ProdutoController {
         }
     }
 
-    // PUT - Atualizar Produto
-    @PUT
+    @PUT // Método para atualizar um produto existente
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -67,8 +65,7 @@ public class ProdutoController {
         }
     }
 
-    // DELETE - Excluir Produto
-    @DELETE
+    @DELETE // Método para excluir um produto existente
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response excluirProduto(@PathParam("id") int id) {
@@ -83,16 +80,4 @@ public class ProdutoController {
                     .build();
         }
     }
-
-    // OPTIONS - Pré-flight para CORS
-    @OPTIONS
-    @Path("{path:.*}")
-    public Response handleOptions() {
-        return Response.ok()
-                .header("Access-Control-Allow-Origin", "http://localhost:3000")
-                .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
-                .header("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization")
-                .header("Access-Control-Allow-Credentials", "true")
-                .build();
-}
 }
