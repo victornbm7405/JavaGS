@@ -29,41 +29,38 @@ public class ProdutoController {
         }
     }
 
-    @POST // Método para cadastrar um novo produto
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response cadastrarProduto(Produto produto) {
-        System.out.println("Recebida requisição POST para cadastrar produto: " + produto);
         try {
             produtoDAO.cadastrarProduto(produto);
-            return Response.status(Response.Status.CREATED)
-                    .entity("Produto cadastrado com sucesso!")
-                    .build();
+            return Response.status(Response.Status.CREATED).entity(produto).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao cadastrar produto.")
+                    .entity("{\"error\":\"Erro ao cadastrar produto\"}")
                     .build();
         }
     }
 
-    @PUT // Método para atualizar um produto existente
+    @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response atualizarProduto(@PathParam("id") int id, Produto produto) {
-        System.out.println("Recebida requisição PUT para atualizar produto com ID: " + id);
         try {
             produto.setId(id);
             produtoDAO.atualizarProduto(produto);
-            return Response.ok("Produto atualizado com sucesso!").build();
+            return Response.ok(produto).build();
         } catch (Exception e) {
             e.printStackTrace();
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity("Erro ao atualizar produto.")
+                    .entity("{\"error\":\"Erro ao atualizar produto\"}")
                     .build();
         }
     }
+
 
     @DELETE // Método para excluir um produto existente
     @Path("/{id}")
