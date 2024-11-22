@@ -11,7 +11,7 @@ public class CorsFilter implements ContainerResponseFilter {
     @Override
     public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext) {
         // Permite múltiplas origens
-        responseContext.getHeaders().add("Access-Control-Allow-Origin", "http://127.0.0.1:5500");
+        responseContext.getHeaders().add("Access-Control-Allow-Origin", "http://127.0.0.1:5500/teste.html");
         responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
         responseContext.getHeaders().add("Access-Control-Allow-Headers", "Origin, Content-Type, Accept, Authorization");
         responseContext.getHeaders().add("Access-Control-Allow-Credentials", "true");
